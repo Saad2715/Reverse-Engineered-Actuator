@@ -28,6 +28,20 @@ void setup() {
   stepper.setCurrentPosition(0);  // You can set your desired initial position here
 }
 
+float findResistance(float analogueReading){
+  float Vin = 5.0;            // 5V
+  float R1 = 220.0;           // 220 Ohms
+  float R2;                   // Variable resistor
+  float Vincrement = 0.0049;  // Voltage per unit (5V/1024units)
+  float I;                    // Circiut Current
+
+  float Vreading = analogueReading * Vincrement;
+  I = (Vin - Vreading) / R1;  // I = Vr1/R1 = (Vin - Vr2)/R1
+  R2 = Vreading / I;
+
+  return R2;
+}
+
 void loop() {
   
   while (runningTest) {
