@@ -11,6 +11,7 @@
 AccelStepper stepper(1, STEP, DIR);
 
 bool runningTest = true;
+float res0, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10;
 
 void setup() {
   Serial.begin(115200);
@@ -45,14 +46,13 @@ float findResistance(float analogueReading){
 void loop() {
   
   while (runningTest) {
-    // Run the stepper motor
-    // stepper.runToNewPosition(-22); // 22 steps move approximately 0.5 mm 
 
-    // delay(10000);
+    int val0 = analogRead(READING);
+    res0 = findResistance(val0);
 
     Serial.println("Reading inital value");
-    Serial.print("Value: ");
-    Serial.println(analogRead(READING));
+    Serial.print("Res0: ");
+    Serial.println(res0);
     Serial.println("Beginning Stretch");
     Serial.println("");
 
@@ -62,9 +62,12 @@ void loop() {
 
     // delay(5000);
 
+    int val1 = analogRead(READING);
+    res1 = findResistance(val1);
+
     Serial.println("Reading 1st increment value");
-    Serial.print("Value: ");
-    Serial.println(analogRead(READING));
+    Serial.print("Res1: ");
+    Serial.println(res1);
     Serial.println("Stretching further");
     Serial.println("");
 
@@ -75,9 +78,12 @@ void loop() {
 
     // delay(5000);
 
+    int val2 = analogRead(READING);
+    res2 = findResistance(val2);
+
     Serial.println("Reading 2nd increment value");
-    Serial.print("Value: ");
-    Serial.println(analogRead(READING));
+    Serial.print("Res2: ");
+    Serial.println(res2);
     Serial.println("Stretching further");
     Serial.println("");
 
@@ -88,9 +94,12 @@ void loop() {
 
     // delay(5000);
 
+    int val3 = analogRead(READING);
+    res3 = findResistance(val3);
+
     Serial.println("Reading 3rd increment value");
-    Serial.print("Value: ");
-    Serial.println(analogRead(READING));
+    Serial.print("Res3: ");
+    Serial.println(res3);
     Serial.println("Stretching further");
     Serial.println("");
 
@@ -101,9 +110,12 @@ void loop() {
 
     // delay(5000);
 
+    int val4 = analogRead(READING);
+    res4 = findResistance(val4);
+
     Serial.println("Reading 4th increment value");
-    Serial.print("Value: ");
-    Serial.println(analogRead(READING));
+    Serial.print("Res4: ");
+    Serial.println(res4);
     Serial.println("Stretching further");
     Serial.println("");
 
@@ -114,9 +126,12 @@ void loop() {
 
     // delay(5000);
 
+    int val5 = analogRead(READING);
+    res5 = findResistance(val5);
+
     Serial.println("Reading 5th increment value");
-    Serial.print("Value: ");
-    Serial.println(analogRead(READING));
+    Serial.print("Res5: ");
+    Serial.println(res5);
     Serial.println("Stretching further");
     Serial.println("");
 
@@ -127,9 +142,12 @@ void loop() {
 
     // delay(5000);
 
+    int val6 = analogRead(READING);
+    res6 = findResistance(val6);
+
     Serial.println("Reading 6th increment value");
-    Serial.print("Value: ");
-    Serial.println(analogRead(READING));
+    Serial.print("Res6: ");
+    Serial.println(res6);
     Serial.println("Stretching further");
     Serial.println("");
 
@@ -140,9 +158,12 @@ void loop() {
 
     // delay(5000);
 
+    int val7 = analogRead(READING);
+    res7 = findResistance(val7);
+
     Serial.println("Reading 7th increment value");
-    Serial.print("Value: ");
-    Serial.println(analogRead(READING));
+    Serial.print("Res7: ");
+    Serial.println(res7);
     Serial.println("Stretching further");
     Serial.println("");
 
@@ -153,9 +174,12 @@ void loop() {
 
     // delay(5000);
 
+    int val8 = analogRead(READING);
+    res8 = findResistance(val8);
+
     Serial.println("Reading 8th increment value");
-    Serial.print("Value: ");
-    Serial.println(analogRead(READING));
+    Serial.print("Res8: ");
+    Serial.println(res8);
     Serial.println("Stretching further");
     Serial.println("");
 
@@ -166,9 +190,12 @@ void loop() {
 
     // delay(5000);
 
+    int val9 = analogRead(READING);
+    res9 = findResistance(val9);
+
     Serial.println("Reading 9th increment value");
-    Serial.print("Value: ");
-    Serial.println(analogRead(READING));
+    Serial.print("Res9: ");
+    Serial.println(res9);
     Serial.println("Stretching further");
     Serial.println("");
 
@@ -179,9 +206,12 @@ void loop() {
 
     // delay(5000);
 
+    int val10 = analogRead(READING);
+    res10 = findResistance(val10);
+
     Serial.println("Reading 10th increment value");
-    Serial.print("Value: ");
-    Serial.println(analogRead(READING));
+    Serial.print("Res10: ");
+    Serial.println(res10);
     Serial.println("5mm total displacement complete");
     Serial.println("");
 
