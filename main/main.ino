@@ -11,25 +11,17 @@
 AccelStepper stepper(1, STEP, DIR);
 
 bool runningTest = true;
-float res0, res1, res2, res3, res4, res5, res6, res7, res8, res9, res10;
+float val, res;
 
 void setup() {
-  Serial.begin(115200);
-  // while (!Serial.available()) {
-  //   ; // Wait for serial to connect
-  // }
+  Serial.begin(9600);
 
-  pinMode(READING, INPUT);
-
-  // Set the maximum speed and acceleration
-  stepper.setMaxSpeed(1000);      // Adjust the maximum speed in steps per second
-  stepper.setAcceleration(500);  // Adjust the acceleration in steps per second squared
-  
-  // Set the initial position of the motor (if needed)
-  stepper.setCurrentPosition(0);  // You can set your desired initial position here
+  stepper.setMaxSpeed(100);
+  stepper.setAcceleration(50);
+  stepper.setCurrentPosition(0);
 }
 
-float findResistance(float analogueReading){
+float findResistance(float analogueReading) {
   float Vin = 5.0;            // 5V
   float R1 = 220.0;           // 220 Ohms
   float R2;                   // Variable resistor
@@ -44,191 +36,709 @@ float findResistance(float analogueReading){
 }
 
 void loop() {
-  
-  while (runningTest) {
+  if (Serial.available()) {
+    String data = Serial.readStringUntil('\n');
+    if (data.equals("start")) {
+      Serial.println("Starting experiment in 5 seconds...");
+      delay(5000);
+      // Add your code to respond to the command here
+      while (runningTest) {
 
-    int val0 = analogRead(READING);
-    res0 = findResistance(val0);
+        Serial.println("Moving to 0.5mm now --------------------------------------------------------------");
+        moveTo0_5();
+        delay(3000);
 
-    Serial.println("Reading inital value");
-    Serial.print("Res0: ");
-    Serial.println(res0);
-    Serial.println("Beginning Stretch");
-    Serial.println("");
+        Serial.println("Moving to 1mm now ----------------------------------------------------------------");
+        moveTo1();
+        delay(3000);
 
-    delay(5000);
+        Serial.println("Moving to 1.5mm now ----------------------------------------------------------------");
+        moveTo1_5();
+        delay(3000);
 
-    stepper.runToNewPosition(-21); // 21 steps move approximately 0.5 mm 
+        Serial.println("Moving to 2mm now ----------------------------------------------------------------");
+        moveTo2();
+        delay(3000);
 
-    // delay(5000);
+        Serial.println("Moving to 2.5mm now ----------------------------------------------------------------");
+        moveTo2_5();
+        delay(3000);
 
-    int val1 = analogRead(READING);
-    res1 = findResistance(val1);
+        Serial.println("Moving to 3mm now ----------------------------------------------------------------");
+        moveTo3();
+        delay(3000);
 
-    Serial.println("Reading 1st increment value");
-    Serial.print("Res1: ");
-    Serial.println(res1);
-    Serial.println("Stretching further");
-    Serial.println("");
+        Serial.println("Moving to 3.5mm now ----------------------------------------------------------------");
+        moveTo3_5();
+        delay(3000);
 
-    delay(5000);
+        Serial.println("Moving to 4mm now ----------------------------------------------------------------");
+        moveTo4();
+        delay(3000);
 
-    // Run the stepper motor
-    stepper.runToNewPosition(-21*2);
+        Serial.println("Moving to 4.5mm now ----------------------------------------------------------------");
+        moveTo4_5();
+        delay(3000);
 
-    // delay(5000);
+        Serial.println("Moving to 5mm now ----------------------------------------------------------------");
+        moveTo5();
+        delay(3000);
 
-    int val2 = analogRead(READING);
-    res2 = findResistance(val2);
+        Serial.println("Moving to 5.5mm now ----------------------------------------------------------------");
+        moveTo5_5();
+        delay(3000);
 
-    Serial.println("Reading 2nd increment value");
-    Serial.print("Res2: ");
-    Serial.println(res2);
-    Serial.println("Stretching further");
-    Serial.println("");
+        Serial.println("Moving to 6mm now ----------------------------------------------------------------");
+        moveTo6();
+        delay(3000);
 
-    delay(5000);
+        Serial.println("Moving to 6.5mm now ----------------------------------------------------------------");
+        moveTo6_5();
+        delay(3000);
 
-    // Run the stepper motor
-    stepper.runToNewPosition(-21*3);
+        Serial.println("Moving to 7mm now ----------------------------------------------------------------");
+        moveTo7();
+        delay(3000);
 
-    // delay(5000);
+        Serial.println("Moving to 7.5mm now ----------------------------------------------------------------");
+        moveTo7_5();
+        delay(3000);
 
-    int val3 = analogRead(READING);
-    res3 = findResistance(val3);
+        Serial.println("Moving to 8mm now ----------------------------------------------------------------");
+        moveTo8();
+        delay(3000);
 
-    Serial.println("Reading 3rd increment value");
-    Serial.print("Res3: ");
-    Serial.println(res3);
-    Serial.println("Stretching further");
-    Serial.println("");
+        Serial.println("Moving to 8.5mm now ----------------------------------------------------------------");
+        moveTo8_5();
+        delay(3000);
 
-    delay(5000);
+        Serial.println("Moving to 9mm now ----------------------------------------------------------------");
+        moveTo9();
+        delay(3000);
 
-    // Run the stepper motor
-    stepper.runToNewPosition(-21*4);
+        Serial.println("Moving to 9.5mm now ----------------------------------------------------------------");
+        moveTo9_5();
+        delay(3000);
 
-    // delay(5000);
+        Serial.println("Moving to 10mm now ----------------------------------------------------------------");
+        moveTo10();
+        delay(3000);
 
-    int val4 = analogRead(READING);
-    res4 = findResistance(val4);
+        Serial.println("finish");
 
-    Serial.println("Reading 4th increment value");
-    Serial.print("Res4: ");
-    Serial.println(res4);
-    Serial.println("Stretching further");
-    Serial.println("");
+        runningTest = false;
+      }
 
-    delay(5000);
+      // stepper.moveTo(-1000);
+      // while(stepper.distanceToGo() != 0)
+      // {
+      //   Serial.println(stepper.currentPosition());
+      //   stepper.run();
+      //   delay(10);
+      // }
+      // Serial.println("Processing command...");
+      // delay(2000);  // Simulating some processing time
+      // Serial.println("Command processed.");
+    }
+  }
+}
 
-    // Run the stepper motor
-    stepper.runToNewPosition(-21*5);
+void moveTo0_5() {
 
-    // delay(5000);
+  // Serial.println("In zero point five");
+  // Serial.println("one");
+  // Serial.println("two");
+  // Serial.println("three");
 
-    int val5 = analogRead(READING);
-    res5 = findResistance(val5);
+  stepper.moveTo(-21);
 
-    Serial.println("Reading 5th increment value");
-    Serial.print("Res5: ");
-    Serial.println(res5);
-    Serial.println("Stretching further");
-    Serial.println("");
-
-    delay(5000);
-
-    // Run the stepper motor
-    stepper.runToNewPosition(-21*6);
-
-    // delay(5000);
-
-    int val6 = analogRead(READING);
-    res6 = findResistance(val6);
-
-    Serial.println("Reading 6th increment value");
-    Serial.print("Res6: ");
-    Serial.println(res6);
-    Serial.println("Stretching further");
-    Serial.println("");
-
-    delay(5000);
-
-    // Run the stepper motor
-    stepper.runToNewPosition(-21*7);
-
-    // delay(5000);
-
-    int val7 = analogRead(READING);
-    res7 = findResistance(val7);
-
-    Serial.println("Reading 7th increment value");
-    Serial.print("Res7: ");
-    Serial.println(res7);
-    Serial.println("Stretching further");
-    Serial.println("");
-
-    delay(5000);
-
-    // Run the stepper motor
-    stepper.runToNewPosition(-21*8);
-
-    // delay(5000);
-
-    int val8 = analogRead(READING);
-    res8 = findResistance(val8);
-
-    Serial.println("Reading 8th increment value");
-    Serial.print("Res8: ");
-    Serial.println(res8);
-    Serial.println("Stretching further");
-    Serial.println("");
-
-    delay(5000);
-
-    // Run the stepper motor
-    stepper.runToNewPosition(-21*9);
-
-    // delay(5000);
-
-    int val9 = analogRead(READING);
-    res9 = findResistance(val9);
-
-    Serial.println("Reading 9th increment value");
-    Serial.print("Res9: ");
-    Serial.println(res9);
-    Serial.println("Stretching further");
-    Serial.println("");
-
-    delay(5000);
-
-    // Run the stepper motor
-    stepper.runToNewPosition(-21*10);
-
-    // delay(5000);
-
-    int val10 = analogRead(READING);
-    res10 = findResistance(val10);
-
-    Serial.println("Reading 10th increment value");
-    Serial.print("Res10: ");
-    Serial.println(res10);
-    Serial.println("5mm total displacement complete");
-    Serial.println("");
-
-    delay(5000);
-
-    runningTest = false;
-
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
   }
 
-  // // Delay for a while
-  // delay(1000);
+  delay(3000);
 
-  // // Move the motor back to the starting position
-  // stepper.moveTo(0);
-  // stepper.runToPosition();
+  stepper.moveTo(0);
 
-  // // Delay again
-  // delay(1000);
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
 
+  Serial.println("end");
+}
+
+void moveTo1() {
+
+  // Serial.println("In one");
+  // Serial.println("one");
+  // Serial.println("two");
+  // Serial.println("three");
+
+  stepper.moveTo(-21 * 2);
+
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
+
+  delay(3000);
+
+  stepper.moveTo(0);
+
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
+
+  Serial.println("end");
+}
+
+void moveTo1_5() {
+
+  // Serial.println("In one point five");
+  // Serial.println("one");
+  // Serial.println("two");
+  // Serial.println("three");
+
+  stepper.moveTo(-21 * 3);
+
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
+
+  delay(3000);
+
+  stepper.moveTo(0);
+
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
+
+  Serial.println("end");
+}
+
+void moveTo2() {
+
+  // Serial.println("In two");
+  // Serial.println("one");
+  // Serial.println("two");
+  // Serial.println("three");
+
+  stepper.moveTo(-21 * 4);
+
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
+
+  delay(3000);
+
+  stepper.moveTo(0);
+
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
+
+  Serial.println("end");
+}
+
+void moveTo2_5() {
+
+  // Serial.println("In two point five");
+  // Serial.println("one");
+  // Serial.println("two");
+  // Serial.println("three");
+
+  stepper.moveTo(-21 * 5);
+
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
+
+  delay(3000);
+
+  stepper.moveTo(0);
+
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
+
+  Serial.println("end");
+}
+
+void moveTo3() {
+
+  // Serial.println("In three");
+  // Serial.println("one");
+  // Serial.println("two");
+  // Serial.println("three");
+
+  stepper.moveTo(-21 * 6);
+
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
+
+  delay(3000);
+
+  stepper.moveTo(0);
+
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
+
+  Serial.println("end");
+}
+
+void moveTo3_5() {
+
+  // Serial.println("In three point five");
+  // Serial.println("one");
+  // Serial.println("two");
+  // Serial.println("three");
+
+  stepper.moveTo(-21 * 7);
+
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
+
+  delay(3000);
+
+  stepper.moveTo(0);
+
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
+
+  Serial.println("end");
+}
+
+void moveTo4() {
+
+  // Serial.println("In four");
+  // Serial.println("one");
+  // Serial.println("two");
+  // Serial.println("three");
+
+  stepper.moveTo(-21 * 8);
+
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
+
+  delay(3000);
+
+  stepper.moveTo(0);
+
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
+
+  Serial.println("end");
+}
+
+void moveTo4_5() {
+
+  // Serial.println("In four point five");
+  // Serial.println("one");
+  // Serial.println("two");
+  // Serial.println("three");
+
+  stepper.moveTo(-21 * 9);
+
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
+
+  delay(3000);
+
+  stepper.moveTo(0);
+
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
+
+  Serial.println("end");
+}
+
+void moveTo5() {
+
+  // Serial.println("In five");
+  // Serial.println("one");
+  // Serial.println("two");
+  // Serial.println("three");
+
+  stepper.moveTo(-21 * 10);
+
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
+
+  delay(3000);
+
+  stepper.moveTo(0);
+
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
+
+  Serial.println("end");
+}
+
+void moveTo5_5() {
+
+  // Serial.println("In five point five");
+  // Serial.println("one");
+  // Serial.println("two");
+  // Serial.println("three");
+
+  stepper.moveTo(-21 * 11);
+
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
+
+  delay(3000);
+
+  stepper.moveTo(0);
+
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
+
+  Serial.println("end");
+}
+
+void moveTo6() {
+
+  // Serial.println("In six");
+  // Serial.println("one");
+  // Serial.println("two");
+  // Serial.println("three");
+
+  stepper.moveTo(-21 * 12);
+
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
+
+  delay(3000);
+
+  stepper.moveTo(0);
+
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
+
+  Serial.println("end");
+}
+
+void moveTo6_5() {
+
+  // Serial.println("In six point five");
+  // Serial.println("one");
+  // Serial.println("two");
+  // Serial.println("three");
+
+  stepper.moveTo(-21 * 13);
+
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
+
+  delay(3000);
+
+  stepper.moveTo(0);
+
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
+
+  Serial.println("end");
+}
+
+void moveTo7() {
+
+  // Serial.println("In seven");
+  // Serial.println("one");
+  // Serial.println("two");
+  // Serial.println("three");
+
+  stepper.moveTo(-21 * 14);
+
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
+
+  delay(3000);
+
+  stepper.moveTo(0);
+
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
+
+  Serial.println("end");
+}
+
+void moveTo7_5() {
+
+  // Serial.println("In seven point five");
+  // Serial.println("one");
+  // Serial.println("two");
+  // Serial.println("three");
+
+  stepper.moveTo(-21 * 15);
+
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
+
+  delay(3000);
+
+  stepper.moveTo(0);
+
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
+
+  Serial.println("end");
+}
+
+void moveTo8() {
+
+  // Serial.println("In eight");
+  // Serial.println("one");
+  // Serial.println("two");
+  // Serial.println("three");
+
+  stepper.moveTo(-21 * 16);
+
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
+
+  delay(3000);
+
+  stepper.moveTo(0);
+
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
+
+  Serial.println("end");
+}
+
+void moveTo8_5() {
+
+  // Serial.println("In eight point five");
+  // Serial.println("one");
+  // Serial.println("two");
+  // Serial.println("three");
+
+  stepper.moveTo(-21 * 17);
+
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
+
+  delay(3000);
+
+  stepper.moveTo(0);
+
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
+
+  Serial.println("end");
+}
+
+void moveTo9() {
+
+  // Serial.println("In nine");
+  // Serial.println("one");
+  // Serial.println("two");
+  // Serial.println("three");
+
+  stepper.moveTo(-21 * 18);
+
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
+
+  delay(3000);
+
+  stepper.moveTo(0);
+
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
+
+  Serial.println("end");
+}
+
+void moveTo9_5() {
+
+  // Serial.println("In nine point five");
+  // Serial.println("one");
+  // Serial.println("two");
+  // Serial.println("three");
+
+  stepper.moveTo(-21 * 19);
+
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
+
+  delay(3000);
+
+  stepper.moveTo(0);
+
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
+
+  Serial.println("end");
+}
+
+void moveTo10() {
+
+  // Serial.println("In ten");
+  // Serial.println("one");
+  // Serial.println("two");
+  // Serial.println("three");
+
+  stepper.moveTo(-21 * 20);
+
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
+
+  delay(3000);
+
+  stepper.moveTo(0);
+
+  while (stepper.distanceToGo() != 0) {
+    val = analogRead(READING);
+    res = findResistance(val);
+    Serial.println(res);
+    stepper.run();
+  }
+
+  Serial.println("end");
 }
